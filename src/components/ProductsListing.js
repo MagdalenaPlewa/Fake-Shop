@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { setProducts } from "../redux/actions"
 import { fetchProductsData } from "./Api";
@@ -10,9 +10,12 @@ const ProductListing = () => {
     const products = useSelector(state => state.allProducts.products)
     const dispatch = useDispatch()
 
+
+
     const productsData = () => {
         fetchProductsData().then(data => {
             dispatch(setProducts(data))
+
         })
     }
 

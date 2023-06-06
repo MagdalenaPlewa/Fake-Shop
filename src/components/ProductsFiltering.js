@@ -15,11 +15,9 @@ export const ProductsFiltering = ({}) => {
 
     const {category} = useParams()
     const dispatch = useDispatch()
+    const [prices, setPrices] = useState([])
+    const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
-
-
-
-
 
     const categoryData = () => {
         fetchFilteredProducts(category).then(data => {
@@ -27,9 +25,30 @@ export const ProductsFiltering = ({}) => {
         })
     }
 
+    const getPrices = () => {
+      const priceArr = products.map(product => {
+          return (
+            product.price
+          )
+        })
+        setPrices(priceArr)
+    }
+
+    const getPricesRange = () => {
+      return [Math.min(...prices), Math.max(...prices)]
+    }
+
     useEffect(() => {
         categoryData()
     }, [])
+
+    useEffect(() => {
+      getPrices()
+  }, [products])
+
+    useEffect(() => {
+      setPriceRange(getPricesRange())
+    }, [prices])
 
     useEffect(() => {
         fetchFilteredProducts(category).then(data => {
@@ -38,17 +57,20 @@ export const ProductsFiltering = ({}) => {
       })
     }, [rating])
 
+    console.log(priceRange)
+
     const renderList = products.map(product => {
         const {id, title, image, price, rating} = product
 
         return(
             <div key={id}>
-                <ProductCardRender 
+                <ProductCardRender
                   id={id}
                   title={title}
                   image={image}
                   price={price}
-                  rating={rating.rate}/>
+                  rating={rating.rate}
+                  />
             </div>
         )
     })
@@ -59,6 +81,11 @@ export const ProductsFiltering = ({}) => {
           <FiltersPanel
             rating={rating}
             setRating={setRating}
+            minPrice={prices.length ? Math.min(...prices) : "0"}
+            maxPrice={prices.length ? Math.max(...prices) : "1000"}
+            priceRange={priceRange}
+            setPrices={setPrices}
+            setPriceRange={setPriceRange}
           />
         </Grid>
         <Grid item xs={12} md={10} sx={{display: "flex", flexWrap: "wrap", justifyContent: "center", p: 1}}>
