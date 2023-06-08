@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchFilteredProducts } from "./Api"
-import { setProductsFiltering, clearProducts } from "../redux/actions"
+import { fetchProductsByCategory } from "./Api"
+import { setProductsByCategory, clearProducts, ratingFilter, priceFilter } from "../redux/actions"
 // import { clearProducts } from "../redux/actions"
 import { ProductCardRender } from "./ProductCardRender"
 import FiltersPanel from "./FiltersPanel"
@@ -11,60 +11,63 @@ import { Grid } from "@mui/material";
 
 export const ProductsFiltering = ({}) => {
 
-    const products = useSelector(state => state.filteredProducts.products)
+    const products = useSelector(state => state.setProductsByCategory.products)
+    // const productsByRating = useSelector(state => state.rankingFilter.products)
 
     const {category} = useParams()
     const dispatch = useDispatch()
+
+    const [productsToRender, setProductsToRender] = useState([])
     const [prices, setPrices] = useState([])
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
 
-    const categoryData = () => {
-        fetchFilteredProducts(category).then(data => {
-            dispatch(setProductsFiltering(data))
-        })
-    }
-
     const getPrices = () => {
-      const priceArr = products.map(product => {
-          return (
-            product.price
-          )
-        })
-        setPrices(priceArr)
-    }
+      const priceArr = []
+          products.map(product => {
+            priceArr.push(product.price)
+            return (
+              setPrices([Math.min(...priceArr), Math.max(...priceArr)])
 
-    const getPricesRange = () => {
-      return [Math.min(...prices), Math.max(...prices)]
-    }
+            )
+          } 
+        )
+   }
+    console.log(prices[1], priceRange)
 
     useEffect(() => {
-        categoryData()
+      fetchProductsByCategory(category).then(data => {
+        dispatch(setProductsByCategory(data))
+        setProductsToRender(data)
+      })
     }, [])
 
     useEffect(() => {
-      getPrices()
+     getPrices()
+     setPriceRange(prices)
   }, [products])
 
     useEffect(() => {
-      setPriceRange(getPricesRange())
-    }, [prices])
-
-    useEffect(() => {
-        fetchFilteredProducts(category).then(data => {
-          const filter = data.filter(product => product.rating.rate > rating)
-          dispatch(setProductsFiltering(filter))
-      })
+          const productsByRating = products.filter(product => product.rating.rate > rating)
+          setProductsToRender(productsByRating)
+          dispatch(ratingFilter(productsByRating))
     }, [rating])
 
-    console.log(priceRange)
+    useEffect(() => {
+      const productsByPrices = products.filter(product => {
+        return(product.price >= priceRange[0] && product.price <= priceRange[1])
+      })
 
-    const renderList = products.map(product => {
+        setProductsToRender(productsByPrices)
+        dispatch(priceFilter(productsByPrices))
+
+}, [priceRange])
+
+    const renderList = productsToRender.map(product => {
         const {id, title, image, price, rating} = product
-
         return(
             <div key={id}>
-                <ProductCardRender
+              <ProductCardRender
                   id={id}
                   title={title}
                   image={image}
@@ -81,10 +84,9 @@ export const ProductsFiltering = ({}) => {
           <FiltersPanel
             rating={rating}
             setRating={setRating}
-            minPrice={prices.length ? Math.min(...prices) : "0"}
-            maxPrice={prices.length ? Math.max(...prices) : "1000"}
-            priceRange={priceRange}
+            prices={prices}
             setPrices={setPrices}
+            priceRange={priceRange}
             setPriceRange={setPriceRange}
           />
         </Grid>

@@ -22,12 +22,28 @@ export const selectedProductReducer = (state = {}, {type, payload}) => {
     }
 }
 
-export const setProductFilteringReducer = (state = initialState, {type, payload}) => {
+export const setProductsByCategoryReducer = (state = initialState, {type, payload}) => {
     switch(type){
-        case ActionsType.FILTERED_PRODUCTS:
+        case ActionsType.SET_PRODUCTS_BY_CATEGORY:
             return {...state, products: payload}
-        // case ActionsType.CLEAR_PRODUCTS:
-        //     return {}
+        default:
+            return state
+    }
+}
+
+export const ratingFilterReducer = (state = initialState, {type, payload}) => {
+    switch(type){
+        case ActionsType.RATING_FILTER:
+            return {...state, products: payload}
+        default:
+            return state
+    }
+}
+
+export const pricesFilterREducer = (state = initialState, {type, payload}) => {
+    switch(type){
+        case ActionsType.PRICE_FILTER:
+            return {...state, products: payload}
         default:
             return state
     }

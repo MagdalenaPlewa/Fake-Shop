@@ -20,9 +20,23 @@ export const selectedProduct = (product) => {
 //     }
 // }
 
-export const setProductsFiltering = (products) => {
+export const setProductsByCategory = (products) => {
     return{
-        type: ActionsType.FILTERED_PRODUCTS,
+        type: ActionsType.SET_PRODUCTS_BY_CATEGORY,
         payload: products
+    }
+}
+
+export const ratingFilter = (productsByRating) => {
+    return{
+        type: ActionsType.RATING_FILTER,
+        payload: productsByRating
+    }
+}
+
+export const priceFilter = (productsByPrices) => {
+    return{
+        type: ActionsType.PRICE_FILTER,
+        payload: productsByPrices
     }
 }

@@ -9,8 +9,7 @@ import { createTheme } from '@mui/material/styles';
 
 import { styled } from '@mui/material/styles';
 
-const FiltersPanel = ({rating, setRating, minPrice, maxPrice, priceRange, setPrices, setPriceRange}) => {
-
+const FiltersPanel = ({rating, setRating, minPrice, maxPrice, prices, priceRange, setPrices, setPriceRange}) => {
 
   const newTheme = createTheme({
     palette: {
@@ -44,22 +43,18 @@ const FiltersPanel = ({rating, setRating, minPrice, maxPrice, priceRange, setPri
                     bgcolor: "transparent"
                   },
                 }}
-                  // getAriaLabel={() => 'Temperature range'}
                   value={priceRange}
-                  min={Number(minPrice) - 10}
-                  max={Number(maxPrice) + 10}
+                  min={prices[0]}
+                  max={prices[1]}
                   onChange={(e) => {
+                    // setPriceRange(e.target.value)
                     setPriceRange(e.target.value)
-                    // setPrices(e.target.value)
                   }}
-                  // getAriaValueText={valuetext}
                   size="small"
-                  >
-
-                </Slider>
+                  />
                 <Box sx={{mb: 5, display: "flex", justifyContent: "space-between"}}>
-                  <Paper elevation={0}>{minPrice} $</Paper>
-                  <Paper elevation={0}>{maxPrice} $</Paper>
+                  <Paper elevation={0}>{priceRange[0]} $</Paper>
+                  <Paper elevation={0}>{priceRange[1]} $</Paper>
                 </Box>
 
                 <FormControl variant='standard' style={style.formControl} >
