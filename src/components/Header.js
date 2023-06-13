@@ -7,16 +7,16 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import SearchIcon from '@mui/icons-material/Search';
+
 import { blue, orange, grey } from '@mui/material/colors'
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 
-import { RenderCategoryLinks } from './ProductsCategory';
 
-// import Badge from '@mui/material/Badge';
+import ProductsMenu from './ProductsMenu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,7 +61,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const [menuOpen, setMenuOpen] = React.useState(false)
+
   const styles = { link: { textDecoration: "none", color: "White" }};
+
+  const hendleMeneClick = () => {
+    setMenuOpen(open => !open)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{bgcolor: grey[600]}}>
@@ -72,6 +79,9 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={() => {
+              hendleMeneClick()
+            }}
           >
             <MenuIcon sx={{ display: { xs: 'block', sm: 'none'}} }/>
           </IconButton>
@@ -94,34 +104,31 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <Box sx={{display: "flex"}}>
+              <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+              >
+                  <MailIcon sx={{color: "white"}}/>
+              </IconButton>
+              <IconButton
+                  size="large"
+                  aria-label="account of current user"
+              >
+                  <AccountCircle sx={{color: "white"}}/>
+              </IconButton>
+              <IconButton
+                  size="large"
+                  aria-label="account of current user"
+              >
+                  <AccountCircle sx={{color: "white"}}/>
+              </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
-      <AppBar position="sticky"
-        sx={{ display: { xs: 'none', sm: 'block'}, mb: 3}}>
-            <Box sx={{ flexGrow: 1, bgcolor: orange[50], pl: 3, pr: 3 }}>
-                <Grid container>
-                    <Grid item xs={10} sx={{ display: "flex", alignItems: "center" }}>
-                      <Box sx={{ width: "100%"}}>
-                         <RenderCategoryLinks/>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={2} sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-                            <IconButton
-                              size="large"
-                              aria-label="show 4 new mails"
-                            >
-                              <MailIcon/>
-                            </IconButton>
-                            <IconButton
-                              size="large"
-                              aria-label="account of current user"
-                            >
-                              <AccountCircle />
-                            </IconButton>
-                    </Grid>
-                </Grid>
-            </Box>
-      </AppBar> 
+      <ProductsMenu 
+        menuOpen={menuOpen}
+      />
     </Box>
   );
 }

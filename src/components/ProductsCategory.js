@@ -6,7 +6,14 @@ import { Box } from "@mui/material";
 
 export const RenderCategoryLinks = () => {
 
-    const styles = { link: { textDecoration: "none", color: "black" }};
+    const styles = { 
+        link:
+        {
+            textDecoration: "none", 
+            color: "black" ,
+        },
+
+    };
 
     const [categories, setCategories] = useState([])
 
@@ -23,13 +30,15 @@ export const RenderCategoryLinks = () => {
 
     const renderLinks = categories.map(category => {
         return (
-            <Link href={`/products/${category}`} style={ styles.link } key={category}>{category}</Link>
+            <Box key={category} sx={{m: {xs: 2}, textAlign: "left" }}>
+                <Link href={`/products/${category}`} style={ styles.link } key={category}>{category}</Link>
+            </Box>
         )
     })
 
     return(
         <div>
-            <Box sx={{ display: "flex", justifyContent: "space-around"}}>
+            <Box sx={{ display: {xs: "block", sm: "flex"}, justifyContent: "space-around"}}>
                 {renderLinks}
             </Box>
       </div>
