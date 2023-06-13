@@ -3,13 +3,18 @@ import { useState, useEffect } from 'react';
 
 import styles from "./FiltersPanel.module.css"
 
-import { Box, FormControl, Slider, Select, InputLabel, MenuItem, Paper} from '@mui/material'
+import { Box, FormControl, Slider, Select, InputLabel, MenuItem, Paper, Button, useMediaQuery} from '@mui/material'
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import FilterListIcon from '@mui/icons-material/FilterList';
+
 
 import { createTheme } from '@mui/material/styles';
 
 import { styled } from '@mui/material/styles';
+import { setProducts } from '../redux/actions';
 
-const FiltersPanel = ({rating, setRating, minPrice, maxPrice, prices, priceRange, setPrices, setPriceRange}) => {
+const FiltersPanel = ({rating, setRating, minPrice, maxPrice, prices, priceRange, setPrices, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive, isActive}) => {
 
   const newTheme = createTheme({
     palette: {
@@ -29,54 +34,74 @@ const FiltersPanel = ({rating, setRating, minPrice, maxPrice, prices, priceRange
 
   const style = {
     formControl: {
-      width: 200,
+      width: "100%",
     },
+    iconBox: {
+      width: "50px",
+      height: "50px",
+      border: "1px solid green",
+      opacity: 1,
+      color: "red"
+    }
   }
 
+  const filteredProducts = () => {
+    setIsActive(false)
+    if(productsByRating.length !== 0){
+      return productsByPrices.filter(el => productsByRating.includes(el))
+    }
+    else{
+      return productsByPrices
+    }
+   }
+
     return (
-        <>
-            <Box sx={{ width: 200, p:2 }}>
-                <Slider sx={{
-                  color: 'grey',
-                  '& .MuiSlider-thumb': {
-                    border: '1px solid black',
-                    bgcolor: "transparent"
-                  },
-                }}
-                  value={priceRange}
-                  min={prices[0]}
-                  max={prices[1]}
-                  onChange={(e) => {
-                    // setPriceRange(e.target.value)
-                    setPriceRange(e.target.value)
-                  }}
-                  size="small"
-                  />
-                <Box sx={{mb: 5, display: "flex", justifyContent: "space-between"}}>
-                  <Paper elevation={0}>{priceRange[0]} $</Paper>
-                  <Paper elevation={0}>{priceRange[1]} $</Paper>
-                </Box>
+      <>
+       <Box sx={{ p: 0, mb: 3, width: {xs: "40%", md: "100%"} }} 
+          >
+          <Slider sx={{
+            color: 'grey',
+            '& .MuiSlider-thumb': {
+              border: '1px solid black',
+              bgcolor: "transparent"
+            },
+          }}
+            value={priceRange}
+            min={prices[0]}
+            max={prices[1]}
+            onChange={(e) => {
+              // setPriceRange(e.target.value)
+              setPriceRange(e.target.value)
+            }}
+            size="small"
+          />
+          <Box sx={{mb: 5, display: "flex", justifyContent: "space-between"}}>
+            <Paper elevation={0}>{priceRange[0]} $</Paper>
+            <Paper elevation={0}>{priceRange[1]} $</Paper>
+          </Box>
+           <FormControl variant='standard' style={style.formControl} >
+            <Label theme={newTheme}>Ranking</Label>
+            <Select sx={{color: "black",
+            '&:after': {
+              borderBottom: "2px solid grey"
+            }}}
+            value={rating}
+            onChange={(e) => {
+              setRating(e.target.value)
+            }}
+           >
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={3}>Above 3.0</MenuItem>
+              <MenuItem value={4}>Above 4.0</MenuItem>
+              <MenuItem value={4.5}>Above 4.5</MenuItem>
+            </Select>
+          </FormControl>
+          <Button sx={{border: "1px solid black", color: "grey", mt: 3}} onClick={() => {
+            setProductsToRender(filteredProducts())
 
-                <FormControl variant='standard' style={style.formControl} >
-                <Label theme={newTheme}>Ranking</Label>
-                <Select sx={{color: "black",
-                '&:after': {
-                  borderBottom: "2px solid grey"
-                }}}
-                value={rating}
-                onChange={(e) => {
-                  setRating(e.target.value)
-                }}
-
-                >
-                  <MenuItem value={0}>All</MenuItem>
-                  <MenuItem value={3}>Above 3.0</MenuItem>
-                  <MenuItem value={4}>Above 4.0</MenuItem>
-                  <MenuItem value={4.5}>Above 4.5</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-        </>
+          }}>Filter</Button>
+        </Box>
+      </>
     );
 }
 
