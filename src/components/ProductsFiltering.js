@@ -88,7 +88,7 @@ export const ProductsFiltering = ({}) => {
 
     return(
       <Grid container>
-        <Grid item xs={12} md={0} sx={{mt: 2}}>
+        <Grid item xs={12} md={0} sx={{mt: 2, display: "flex", justifyContent: "center"}}>
         <Box sx={{ display: {xs: 'block', md: 'none'} }} >
           <IconButton
             size="small"

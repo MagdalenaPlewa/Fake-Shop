@@ -38,13 +38,14 @@ const ProductsMenu = ({menuOpen}) => {
                               <AccountCircle />
                             </IconButton>
                     </Grid>
+
                 </Grid>
             </Box>
         </AppBar> ) : (
 
         <AppBar position="fixed"
-        sx={{ m: 2, top: 50, left: 0, width: "50%", display: menuOpen ? 'block' : 'none'}}>
-            <Box sx={{ bgcolor: orange[50], p: 2}}>
+        sx={{ m: 2, top: 75, left: 0, width: "50%", display: menuOpen ? 'block' : 'none', borderRadius: "3px"}}>
+            <Box sx={{ bgcolor: orange[50], p: 2, borderRadius: "3px"}}>
                 <Box>
                    <RenderCategoryLinks/>
                 </Box>
@@ -62,6 +63,26 @@ const ProductsMenu = ({menuOpen}) => {
                         <AccountCircle />
                     </IconButton>
                 </Box>
+                <Box sx={{ display: "flex"}}>
+                            <IconButton
+                              size="large"
+                              aria-label="show 4 new mails"
+                            >
+                              <MailIcon/>
+                            </IconButton>
+                            <IconButton
+                              size="large"
+                              aria-label="account of current user"
+                            >
+                              <AccountCircle />
+                            </IconButton>
+                            <IconButton
+                              size="large"
+                              aria-label="account of current user"
+                            >
+                              <AccountCircle />
+                            </IconButton>
+                    </Box>
             </Box>
         </AppBar>
       )

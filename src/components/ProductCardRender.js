@@ -9,7 +9,7 @@ export const ProductCardRender = ({id, title, image, price, rating}) => {
     const styles = { link: { textDecoration: "none", color: "black" }};
         return(
             <div key={id}>
-                <Card sx={{ height: 460, width: 300, m: 2, p: 1, position: "relative", display: "flex", justifyContent:"center"}}>
+                <Card sx={{ height: 460, maxWidth: 280, m: 2, p: 1, position: "relative", display: "flex", justifyContent:"center"}}>
                     <Link href={`/product/${id}`} style={styles.link}>
                       <CardMedia
                       component="img"
@@ -17,8 +17,8 @@ export const ProductCardRender = ({id, title, image, price, rating}) => {
                       image={image}
                       alt={title}
                     />
-                      <CardContent sx={{ p: 0, position: "absolute", bottom: 40, left: 0, }} >
-                        <Typography variant="body2" component="div" sx={{ p: 1, width: 300, display: "flex", flexWrap: "wrap", justifyContent: "center"}} >
+                      <CardContent sx={{ p: 0, position: "absolute", bottom: 40, left: 0}} >
+                        <Typography variant="body2" component="div" sx={{ p: 3, display: "flex", flexWrap: "wrap", justifyContent: "center"}} >
                           {title}
                         </Typography>
                       </CardContent>

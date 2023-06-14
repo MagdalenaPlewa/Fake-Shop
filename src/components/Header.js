@@ -17,6 +17,7 @@ import Link from '@mui/material/Link';
 
 
 import ProductsMenu from './ProductsMenu';
+import ComboBox from './SeachAutocomplete';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,8 +71,8 @@ export default function SearchAppBar() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{bgcolor: grey[600]}}>
+    <>
+      <AppBar position="static" sx={{bgcolor: grey[600], height: "90px", display: "flex", justifyContent: "center", width: "100%"}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -95,16 +96,17 @@ export default function SearchAppBar() {
               Fake Shop
             </Link>
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
+
+          <Search sx={{minWidth: "200px"}}>
+          <SearchIconWrapper sx={{bgcolor: "grey", height: "100%"}}>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <Box sx={{pl: 7}}>
+            <ComboBox/>
+          </Box>
+
           </Search>
-          <Box sx={{display: "flex"}}>
+          <Box sx={{display: {xs: "none", sm: "flex"}}}>
               <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -124,11 +126,13 @@ export default function SearchAppBar() {
                   <AccountCircle sx={{color: "white"}}/>
               </IconButton>
           </Box>
+
         </Toolbar>
+
       </AppBar>
       <ProductsMenu 
         menuOpen={menuOpen}
       />
-    </Box>
+    </>
   );
 }

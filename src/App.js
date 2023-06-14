@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 
 function App() {
   return (
-    <div className="App">
+    <div className='container'>
       <Header/>
         <BrowserRouter>
           <Routes>
