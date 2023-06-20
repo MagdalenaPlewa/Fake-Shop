@@ -3,7 +3,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import { Grid, Box, useMediaQuery } from '@mui/material';
-import { blue, orange, grey } from '@mui/material/colors'
+import { orange} from '@mui/material/colors'
 
 import { RenderCategoryLinks } from './ProductsCategory';
 
@@ -38,7 +38,6 @@ const ProductsMenu = ({menuOpen}) => {
                               <AccountCircle />
                             </IconButton>
                     </Grid>
-
                 </Grid>
             </Box>
         </AppBar> ) : (

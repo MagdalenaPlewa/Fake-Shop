@@ -21,7 +21,7 @@ const ProductListing = () => {
     }, [])
 
     const renderList = products.map(product => {
-            const {id, title, image, price} = product
+            const {id, title, image, price, rating} = product
 
             return(
                 <div key={id}>
@@ -29,7 +29,8 @@ const ProductListing = () => {
                   id={id}
                   title={title}
                   image={image}
-                  price={price}/>
+                  price={price}
+                  rating={rating.rate}/>
                 </div>
             )
         })

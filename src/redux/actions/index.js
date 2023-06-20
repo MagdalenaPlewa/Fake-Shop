@@ -40,3 +40,10 @@ export const priceFilter = (productsByPrices) => {
         payload: productsByPrices
     }
 }
+
+export const searchProducts = (searchingProducts) => {
+    return{
+        type: ActionsType.SEARCH_PRODUCTS,
+        payload: searchingProducts
+    }
+}

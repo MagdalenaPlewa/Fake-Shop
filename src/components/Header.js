@@ -97,12 +97,18 @@ export default function SearchAppBar() {
             </Link>
           </Typography>
 
-          <Search sx={{minWidth: "200px"}}>
-          <SearchIconWrapper sx={{bgcolor: "grey", height: "100%"}}>
-            <SearchIcon />
+          <Search sx={{minWidth: {sx: "250px", sm: "300px"}, 
+          '& .css-12kl8iw': {
+            paddingLeft: {xs: 0, sm: "50px"}
+          }}}>
+          <SearchIconWrapper >
+            <SearchIcon  sx={{bgcolor: grey[550], height: "100%", display: {xs: "none", sm: "flex"}}}/>
           </SearchIconWrapper>
           <Box sx={{pl: 7}}>
             <ComboBox/>
+            <Link href={`/products/searching-result`} style={ styles.link } sx={{fontSize: {sm: "18px", md: "24px"}}} >
+              test
+            </Link>
           </Box>
 
           </Search>

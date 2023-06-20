@@ -48,3 +48,12 @@ export const pricesFilterREducer = (state = initialState, {type, payload}) => {
             return state
     }
 }
+
+export const searchingProductsReducer = (state = initialState, {type, payload}) => {
+    switch(type){
+        case ActionsType.SEARCH_PRODUCTS:
+            return {...state, products: payload}
+        default:
+            return state
+    }
+}

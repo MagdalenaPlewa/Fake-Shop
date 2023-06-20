@@ -31,7 +31,7 @@ export const RenderCategoryLinks = () => {
     const renderLinks = categories.map(category => {
         return (
             <Box key={category} sx={{m: {xs: 2}, textAlign: "left" }}>
-                <Link href={`/products/${category}`} style={ styles.link } key={category}>{category}</Link>
+                <Link href={`/products/${category}`} style={ styles.link } sx={{fontSize: {sm: "18px", md: "24px"}}} key={category}>{category}</Link>
             </Box>
         )
     })

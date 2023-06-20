@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchProductsByCategory } from "./Api"
-import { setProductsByCategory, clearProducts, ratingFilter, priceFilter } from "../redux/actions"
+import { fetchProductsByCategory, fetchProductsData } from "./Api"
+import { searchProducts, clearProducts, ratingFilter, priceFilter } from "../redux/actions"
 // import { clearProducts } from "../redux/actions"
 import { ProductCardRender } from "./ProductCardRender"
 import FiltersPanel from "./FiltersPanel"
@@ -13,12 +13,12 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { Grid, Box } from "@mui/material";
 
-export const ProductsFiltering = ({}) => {
+const ProductsSearching = () => {
+    
+    const products = useSelector(state => state.searchingProducts.products)
+//     // const productsByRating = useSelector(state => state.rankingFilter.products)
 
-    const products = useSelector(state => state.setProductsByCategory.products)
-    // const productsByRating = useSelector(state => state.rankingFilter.products)
-
-    const {category} = useParams()
+//     const {category} = useParams()
     const dispatch = useDispatch()
 
     const [productsToRender, setProductsToRender] = useState([])
@@ -29,13 +29,15 @@ export const ProductsFiltering = ({}) => {
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
 
+    console.log(prices)
+
     const getPrices = () => {
+    setProductsToRender(products)
       const priceArr = []
           products.map(product => {
             priceArr.push(product.price)
             return (
               setPrices([Math.min(...priceArr), Math.max(...priceArr)])
-
             )
           } 
         )
@@ -46,24 +48,22 @@ export const ProductsFiltering = ({}) => {
    }
 
     useEffect(() => {
-      fetchProductsByCategory(category).then(data => {
-        dispatch(setProductsByCategory(data))
-        setProductsToRender(data)
-      })
-    }, [])
 
-    useEffect(() => {
-        setProductsToRender(products)
+        getPrices()
+
+
+
     }, [products])
 
     useEffect(() => {
-     getPrices()
-     setPriceRange(prices)
-  }, [products])
+        setPriceRange(prices)
+    }, [prices])
 
     useEffect(() => {
+
           const productsToFilter = products.filter(product => product.rating.rate > rating)
           setProductsByRiting(productsToFilter)
+          console.log("rating", productsByRating, productsToFilter)
           dispatch(ratingFilter(productsToFilter))
     }, [rating])
 
@@ -80,18 +80,18 @@ export const ProductsFiltering = ({}) => {
         return(
             <div key={id}>
               <ProductCardRender
-                  id={id}
-                  title={title}
-                  image={image}
-                  price={price}
-                  rating={rating.rate}
-                  />
+                id={id}
+                title={title}
+                image={image}
+                price={price}
+                rating={rating.rate}
+                />
             </div>
         )
     })
 
     return(
-      <Grid container>
+    <Grid container>
         <Grid item xs={12} md={0} sx={{mt: 2, display: "flex", justifyContent: "center"}}>
         <Box sx={{ display: {xs: 'block', md: 'none'} }} >
           <IconButton
@@ -126,6 +126,10 @@ export const ProductsFiltering = ({}) => {
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-      </Grid>
+        </Grid>
     )
+// return <>test</>
+
 }
+
+export default ProductsSearching

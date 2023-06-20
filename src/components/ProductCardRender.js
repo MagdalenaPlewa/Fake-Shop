@@ -9,7 +9,7 @@ export const ProductCardRender = ({id, title, image, price, rating}) => {
     const styles = { link: { textDecoration: "none", color: "black" }};
         return(
             <div key={id}>
-                <Card sx={{ height: 460, maxWidth: 280, m: 2, p: 1, position: "relative", display: "flex", justifyContent:"center"}}>
+                <Card sx={{ height: 500, width: 250, m: 2, p: 1, position: "relative", display: "flex", justifyContent:"center"}}>
                     <Link href={`/product/${id}`} style={styles.link}>
                       <CardMedia
                       component="img"
@@ -17,13 +17,13 @@ export const ProductCardRender = ({id, title, image, price, rating}) => {
                       image={image}
                       alt={title}
                     />
-                      <CardContent sx={{ p: 0, position: "absolute", bottom: 40, left: 0}} >
-                        <Typography variant="body2" component="div" sx={{ p: 3, display: "flex", flexWrap: "wrap", justifyContent: "center"}} >
+                      <CardContent sx={{ p: 0, width: "100%", position: "absolute", bottom: 20, left: 0, display: "flex", flexWrap: "wrap", justifyContent: "center"}} >
+                        <Typography variant="body2" component="div" sx={{ p: 3, width: "100%", textAlign: "center"}} >
                           {title}
                         </Typography>
                       </CardContent>
                     </Link>
-                    <Box sx={{ position: "absolute", bottom: 5}}>
+                    <Box sx={{ position: "absolute", bottom: 10, mt: 1, textAlign: "center"}}>
                       <Typography sx={{color: "red", fontWeight: 'bold'}}>
                         {`${price.toFixed(2)} $`}
                       </Typography>
