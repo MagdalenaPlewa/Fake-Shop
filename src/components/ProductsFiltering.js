@@ -8,6 +8,7 @@ import { ProductCardRender } from "./ProductCardRender"
 import FiltersPanel from "./FiltersPanel"
 
 import IconButton from '@mui/material/IconButton';
+import TuneIcon from '@mui/icons-material/Tune';
 import MenuIcon from '@mui/icons-material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -28,6 +29,7 @@ export const ProductsFiltering = ({}) => {
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
+    console.log(productsToRender)
 
     const getPrices = () => {
       const priceArr = []
@@ -104,7 +106,7 @@ export const ProductsFiltering = ({}) => {
               handleClick()
             }}
           >
-            <FilterListIcon sx={{ color: "grey" }}/>
+            <TuneIcon sx={{ color: "grey" }}/>
           </IconButton>
         </Box>
         </Grid>
@@ -118,7 +120,9 @@ export const ProductsFiltering = ({}) => {
             setPriceRange={setPriceRange}
             setProductsToRender={setProductsToRender}
             productsByPrices={productsByPrices}
+            setProductsByPrices={setProductsByPrices}
             productsByRating={productsByRating}
+            setProductsByRiting={setProductsByRiting}
             setIsActive={setIsActive}
             isActive={isActive}
           />

@@ -8,7 +8,10 @@ import { createTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import { setProducts } from '../redux/actions';
 
-const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive, isActive}) => {
+import { setProductsByCategory } from '../redux/actions';
+import { useSelector } from 'react-redux';
+
+const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive, setProductsByRating, setProductsByPrice, isActive}) => {
 
   const newTheme = createTheme({
     palette: {
@@ -39,6 +42,9 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
     }
   }
 
+  const productsByCategory = useSelector(state => state.setProductsByCategory.products)
+  const productsBySearching = useSelector(state => state.searchingProducts.products)
+
   const filteredProducts = () => {
     setIsActive(false)
     if(productsByRating.length !== 0){
@@ -49,9 +55,21 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
     }
    }
 
+   const cleanFilter = () => {
+    setIsActive(false)
+    setPriceRange(prices)
+    setRating("0")
+    if(productsByCategory.length !== 0){
+      return productsByCategory
+    }
+    if(productsBySearching.length !== 0){
+      return productsBySearching
+    }
+   }
+
     return (
       <>
-       <Box sx={{ p: 0, mb: 3, width: {xs: "40%", md: "100%"} }} 
+       <Box sx={{ p: 0, mb: 3, width: {xs: "40%", md: "100%"}, fontSize: "18px" }} 
           >
           <Slider sx={{
             color: 'grey',
@@ -89,10 +107,17 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
               <MenuItem value={4.5}>Above 4.5</MenuItem>
             </Select>
           </FormControl>
-          <Button sx={{border: "1px solid black", color: "grey", mt: 3}} onClick={() => {
+          <Box sx={{display: "flex", justifyContent: "space-around", pt: 3}}>
+          <Button sx={{border: "1px solid black", color: "grey", maxWidth: "50px", m: 1}} onClick={() => {
             setProductsToRender(filteredProducts())
 
           }}>Filter</Button>
+          <Button sx={{border: "1px solid black", color: "grey", maxWidth: "50px", m: 1}} onClick={() => {
+            setProductsToRender(cleanFilter())
+  
+
+          }}>DELETE</Button>
+          </Box>
         </Box>
       </>
     );
