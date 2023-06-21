@@ -8,6 +8,7 @@ import { ProductCardRender } from "./ProductCardRender"
 import FiltersPanel from "./FiltersPanel"
 
 import IconButton from '@mui/material/IconButton';
+import TuneIcon from '@mui/icons-material/Tune';
 import MenuIcon from '@mui/icons-material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -29,8 +30,6 @@ const ProductsSearching = () => {
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
 
-    console.log(prices)
-
     const getPrices = () => {
     setProductsToRender(products)
       const priceArr = []
@@ -48,11 +47,7 @@ const ProductsSearching = () => {
    }
 
     useEffect(() => {
-
         getPrices()
-
-
-
     }, [products])
 
     useEffect(() => {
@@ -63,7 +58,6 @@ const ProductsSearching = () => {
 
           const productsToFilter = products.filter(product => product.rating.rate > rating)
           setProductsByRiting(productsToFilter)
-          console.log("rating", productsByRating, productsToFilter)
           dispatch(ratingFilter(productsToFilter))
     }, [rating])
 
@@ -104,7 +98,7 @@ const ProductsSearching = () => {
               handleClick()
             }}
           >
-            <FilterListIcon sx={{ color: "grey" }}/>
+            <TuneIcon sx={{ color: "grey" }}/>
           </IconButton>
         </Box>
         </Grid>
