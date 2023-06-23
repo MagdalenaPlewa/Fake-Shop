@@ -8,6 +8,7 @@ import FiltersPanel from './components/FiltersPanel';
 
 import Grid from '@mui/material/Grid';
 import ProductsSearching from './components/ProductsSearching';
+// import ProductsSearching from './components/ProductsSearching';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <Route path='/' element={<ProductListing/>}/>
             <Route path="/product/:id" element={<ProductDetails/>}/>
             <Route path="/products/:category" element={<ProductsFiltering/>}/>
-            <Route path="/products/:searching-result" element={<ProductsSearching/>}/>
+            <Route path="/products-searching/:inputValue" element={<ProductsSearching/>}/>
           </Routes>
           </BrowserRouter>
     </div>

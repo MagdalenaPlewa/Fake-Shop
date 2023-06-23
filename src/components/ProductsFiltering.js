@@ -29,7 +29,6 @@ export const ProductsFiltering = ({}) => {
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
-    console.log(productsToRender)
 
     const getPrices = () => {
       const priceArr = []

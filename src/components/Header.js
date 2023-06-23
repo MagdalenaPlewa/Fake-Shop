@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -63,8 +65,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   const [menuOpen, setMenuOpen] = React.useState(false)
+  const inputRef = React.useRef(null)
+
+  const products = useSelector(state => state.searchingProducts.products)
 
   const styles = { link: { textDecoration: "none", color: "White" }};
+
+  // const clickHandler = () => {
+  //   console.log(products)
+  //   if(products.length !== 0){
+  //     inputRef.current.click()
+  //   }
+  // }
+
+  // React.useEffect(() => {
+  //   clickHandler()
+  // },[products])
 
   const hendleMeneClick = () => {
     setMenuOpen(open => !open)
@@ -101,14 +117,14 @@ export default function SearchAppBar() {
           '& .css-12kl8iw': {
             paddingLeft: {xs: 0, sm: "50px"}
           }}}>
-          <SearchIconWrapper >
+          <SearchIconWrapper>
             <SearchIcon  sx={{bgcolor: grey[550], height: "100%", display: {xs: "none", sm: "flex"}}}/>
           </SearchIconWrapper>
           <Box sx={{pl: 7}}>
-            <ComboBox/>
-            <Link href={`/products/searching-result`} style={ styles.link } sx={{fontSize: {sm: "18px", md: "24px"}}} >
+            <ComboBox />
+            {/* <Link href={`/products/searcing-result`} style={ styles.link } sx={{fontSize: {sm: "18px", md: "24px"}}} ref={inputRef}>
               test
-            </Link>
+            </Link> */}
           </Box>
 
           </Search>
