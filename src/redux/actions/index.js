@@ -47,3 +47,10 @@ export const searchProducts = (searchingProducts) => {
         payload: searchingProducts
     }
 }
+
+export const addToWishlist = (product) => {
+    return{
+        type: ActionsType.ADD_TO_WISHLIST,
+        payload: product
+    }
+}

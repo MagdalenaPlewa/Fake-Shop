@@ -4,23 +4,25 @@ import Header from './components/Header';
 import ProductListing from './components/ProductsListing';
 import { ProductDetails } from './components/ProductDetails';
 import { ProductsFiltering } from './components/ProductsFiltering';
-import FiltersPanel from './components/FiltersPanel';
-
-import Grid from '@mui/material/Grid';
+import Wishlist from './components/Wishlist';
 import ProductsSearching from './components/ProductsSearching';
+import { Cart } from './components/Cart';
 
 function App() {
+
   return (
     <div className='container'>
-      <Header/>
-        <BrowserRouter>
+
+
+        <Header/>
           <Routes>
-            <Route path='/' element={<ProductListing/>}/>
+            <Route path='/' exact element={<ProductListing/>}/>
             <Route path="/product/:id" element={<ProductDetails/>}/>
             <Route path="/products/:category" element={<ProductsFiltering/>}/>
-            <Route path="/products/:searching-result" element={<ProductsSearching/>}/>
+            <Route path="/products-searching/:inputValue" element={<ProductsSearching/>}/>
+            <Route exact path="/wishlist" element={<Wishlist/>}/>
+            <Route exact path='/cart' element={<Cart/>}/>
           </Routes>
-          </BrowserRouter>
     </div>
   );
 }

@@ -14,7 +14,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { Grid, Box } from "@mui/material";
 
-export const ProductsFiltering = ({}) => {
+export const ProductsFiltering = ({handleAddProduct}) => {
 
     const products = useSelector(state => state.setProductsByCategory.products)
     // const productsByRating = useSelector(state => state.rankingFilter.products)
@@ -29,7 +29,6 @@ export const ProductsFiltering = ({}) => {
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
-    console.log(productsToRender)
 
     const getPrices = () => {
       const priceArr = []
@@ -37,9 +36,8 @@ export const ProductsFiltering = ({}) => {
             priceArr.push(product.price)
             return (
               setPrices([Math.min(...priceArr), Math.max(...priceArr)])
-
             )
-          } 
+          }
         )
    }
 
@@ -77,23 +75,26 @@ export const ProductsFiltering = ({}) => {
         dispatch(priceFilter(productsByPrices))
     }, [priceRange])
 
-    const renderList = productsToRender.map(product => {
-        const {id, title, image, price, rating} = product
-        return(
-            <div key={id}>
-              <ProductCardRender
-                  id={id}
-                  title={title}
-                  image={image}
-                  price={price}
-                  rating={rating.rate}
-                  />
-            </div>
-        )
-    })
+    const renderList = (productsToRender.length) ? (
+      productsToRender.map(product => {
+          const {id, title, image, price, rating} = product
+              return(
+                <div key={id}>
+                    <ProductCardRender
+                    product={product}
+                    id={id}
+                    title={title}
+                    image={image}
+                    price={price}
+                    rating={rating.rate}
+                    />
+                </div>
+              )
+            })
+    ) : (<>no result</>)
 
     return(
-      <Grid container>
+      (productsToRender.length) ? (<Grid container>
         <Grid item xs={12} md={0} sx={{mt: 2, display: "flex", justifyContent: "center"}}>
         <Box sx={{ display: {xs: 'block', md: 'none'} }} >
           <IconButton
@@ -130,6 +131,7 @@ export const ProductsFiltering = ({}) => {
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-      </Grid>
+      </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>Loading...</div>)
+      
     )
 }

@@ -12,22 +12,38 @@ import { grey } from '@mui/material/colors'
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import { Box } from "@mui/material";
+import { useState } from "react"
 
 
 export const ProductDetails = () => {
     const product = useSelector(state => state.selectedProduct)
 
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
+
     const { image, title, price, description } = product
     const {id} = useParams()
     const dispatch = useDispatch()
-    const detailsData = () => {
-        fetchProductDetails(id).then(data => {
-            dispatch(selectedProduct(data))
-        })
-    }
+    // const detailsData = () => {
+    //     fetchProductDetails(id).then(data => {
+    //         dispatch(selectedProduct(data))
+    //     })
+    // }
+    // useEffect(() => {
+    //     detailsData()
+    // }, [id])
+
     useEffect(() => {
-        detailsData()
-    }, [id])
+        const getProduct = async() => {
+        setLoading(true)
+        const response = await fetch(`https://fakestoreapi.com/products/${id}`)
+        setData(await response.json())
+        console.log(data)
+        dispatch(selectedProduct(data))
+        setLoading(false)
+        }
+        getProduct()
+        }, [id])
 
     return(
         <div key={id}>
