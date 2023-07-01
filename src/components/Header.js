@@ -2,14 +2,10 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
+import { Badge, AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MailIcon from '@mui/icons-material/Mail';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -20,6 +16,7 @@ import Link from '@mui/material/Link';
 
 import ProductsMenu from './ProductsMenu';
 import ComboBox from './SeachAutocomplete';
+import { NavLink } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -46,41 +43,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
 export default function SearchAppBar() {
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const inputRef = React.useRef(null)
-
-  const products = useSelector(state => state.searchingProducts.products)
+  const wishProduct = useSelector(state => state.setWishProduct)
 
   const styles = { link: { textDecoration: "none", color: "White" }};
 
-  // const clickHandler = () => {
-  //   console.log(products)
-  //   if(products.length !== 0){
-  //     inputRef.current.click()
-  //   }
-  // }
-
-  // React.useEffect(() => {
-  //   clickHandler()
-  // },[products])
 
   const hendleMeneClick = () => {
     setMenuOpen(open => !open)
@@ -122,9 +90,6 @@ export default function SearchAppBar() {
           </SearchIconWrapper>
           <Box sx={{pl: 7}}>
             <ComboBox />
-            {/* <Link href={`/products/searcing-result`} style={ styles.link } sx={{fontSize: {sm: "18px", md: "24px"}}} ref={inputRef}>
-              test
-            </Link> */}
           </Box>
 
           </Search>
@@ -133,13 +98,19 @@ export default function SearchAppBar() {
                   size="large"
                   aria-label="show 4 new mails"
               >
-                  <MailIcon sx={{color: "white"}}/>
+                <Badge badgeContent={wishProduct.length} color="error">
+                  <NavLink to="/wishlist" style={styles.link}>
+                   <FavoriteBorderIcon sx={{color: "white"}}/>
+                  </NavLink>
+                </Badge>
               </IconButton>
               <IconButton
                   size="large"
                   aria-label="account of current user"
               >
-                  <AccountCircle sx={{color: "white"}}/>
+                <Link href={`/cart`}>
+                <AccountCircle sx={{color: "white"}}/>
+                </Link>
               </IconButton>
               <IconButton
                   size="large"

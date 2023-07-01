@@ -79,10 +79,9 @@ const ProductsSearching = ({}) => {
     searchingProducts()
   }, [searchElement])
 
-
    useEffect(() => {
     setProductsToRender(products)
-}, [])
+  }, [])
 
     useEffect(() => {
         getPrices()
@@ -106,23 +105,25 @@ const ProductsSearching = ({}) => {
         dispatch(priceFilter(productsByPrices))
     }, [priceRange])
 
-    const renderList = productsToRender.map(product => {
-        const {id, title, image, price, rating} = product
-        return(
-            <div key={id}>
-                <ProductCardRender
-                id={id}
-                title={title}
-                image={image}
-                price={price}
-                rating={rating.rate}
-                />
-            </div>
-        )
-    })
+    const renderList = (productsToRender.length) ? (
+      productsToRender.map(product => {
+            const {id, title, image, price, rating} = product
+              return(
+                <div key={id}>
+                    <ProductCardRender
+                    id={id}
+                    title={title}
+                    image={image}
+                    price={price}
+                    rating={rating.rate}
+                    />
+                </div>
+            )
+            })
+    ) : (<>no result</>)
 
     return(
-    <Grid container>
+      (productsToRender.length) ? (<Grid container>
         <Grid item xs={12} md={0} sx={{mt: 2, display: "flex", justifyContent: "center"}}>
         <Box sx={{ display: {xs: 'block', md: 'none'} }} >
           <IconButton
@@ -157,7 +158,8 @@ const ProductsSearching = ({}) => {
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-        </Grid>
+        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>Loading...</div>)
+    
     )
 }
 

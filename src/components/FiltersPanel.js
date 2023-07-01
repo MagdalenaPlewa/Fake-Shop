@@ -47,11 +47,11 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
 
   const filteredProducts = () => {
     setIsActive(false)
-    if(productsByRating.length !== 0){
-      return productsByPrices.filter(el => productsByRating.includes(el))
+    if(rating == 0){
+      return productsByPrices
     }
     else{
-      return productsByPrices
+      return productsByPrices.filter(el => productsByRating.includes(el))
     }
    }
 

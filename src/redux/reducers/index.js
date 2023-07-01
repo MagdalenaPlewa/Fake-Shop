@@ -1,6 +1,7 @@
 import { combineReducers } from "redux"
 
-import { setProductsReducer, selectedProductReducer, setProductsByCategoryReducer, ratingFilterReducer, pricesFilterREducer, searchingProductsReducer } from "./productsReducers"
+import { setProductsReducer, selectedProductReducer, setProductsByCategoryReducer, ratingFilterReducer, pricesFilterREducer, searchingProductsReducer, addToWishlistReducer } from "./productsReducers"
+import { addToWishlist } from "../actions"
 
 const reducers = combineReducers({
     allProducts: setProductsReducer,
@@ -8,7 +9,8 @@ const reducers = combineReducers({
     setProductsByCategory: setProductsByCategoryReducer,
     ratingFilter: ratingFilterReducer,
     pricesFilter: pricesFilterREducer,
-    searchingProducts: searchingProductsReducer
+    searchingProducts: searchingProductsReducer,
+    setWishProduct: addToWishlistReducer
 })
 
 export default reducers
