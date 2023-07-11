@@ -63,7 +63,9 @@ export const addToWishlistReducer = (state = [], {type, payload}) => {
         case ActionsType.ADD_TO_WISHLIST:
             const exist = state.find((x) => x.id === payload.id)
             if(exist){
-                return state.map(x => x.id === payload.id ? {...x, qty: x.qty + 1} : x)
+                return (
+                    state.map(x => x.id === payload.id ? {...x, qty: x.qty + 1} : x)
+                    )
             }
             else{
                 return[
@@ -75,17 +77,83 @@ export const addToWishlistReducer = (state = [], {type, payload}) => {
                 ]
             }
             break
-        // case "DELITEM":
-        //     const exist1 = state.find(x => x.id === product.id)
-        //     if(exist1.qty === 1){
-        //         return state.filter(x => x.id !== exist1.id)
-        //     }
-        //     else{
-        //         return state.map(x => x.id === product.id ? {...x, qty: x.qty - 1} : x)
-        //     }
-        //     break
+        case ActionsType.DELETE_FROM_WISHLIST:
+            const exist1 = state.find(x => x.id === payload.id)
+            if(exist1.qty === 1){
+                return state.filter(x => x.id !== exist1.id)
+            }
+            else{
+                return state.map(x => x.id === payload.id ? {...x, qty: x.qty - 1} : x)
+            }
+            break
         default: 
             return state
             break
     }
 }
+
+export const addToCartReducer = (state = [], {type, payload}) => {
+    switch(type){
+        case ActionsType.ADD_TO_CART:
+            const exist = state.find((x) => x.id === payload.id)
+            if(exist){
+                return (
+                    state.map(x => x.id === payload.id ? {...x, qty: x.qty + 1} : x)
+                    )
+            }
+            else{
+                return[
+                    ...state,
+                    {
+                        ...payload, 
+                        qty: 1
+                    }
+                ]
+            }
+            break
+        case ActionsType.DELETE_FROM_CART:
+            const exist1 = state.find(x => x.id === payload.id)
+            if(exist1.qty === 1){
+                return state.filter(x => x.id !== exist1.id)
+            }
+            else{
+                return state.map(x => x.id === payload.id ? {...x, qty: x.qty - 1} : x)
+            }
+            break
+        default: 
+            return state
+            break
+    }
+}
+
+export const clearSearchInputReducer = (state = [], {type, payload}) => {
+    switch(type){
+        case ActionsType.CLEAR_SEARCH_INPUT:
+            return [...state, payload]
+        default:
+            return state
+    }
+
+}
+
+// export const deleteFromWishlistReducer = (state = [], {type, payload}) => {
+//     switch(type){
+//         case ActionsType.DELETE_FROM_WISHLIST:
+//             // const exist1 = state.find(x => x.id === payload.id)/
+//             console.log(payload.id)
+//             // if(exist1){
+//             //     console.log(exist1)
+//             //     return state.filter(x => x.id === payload.id ? {...x} : x)
+//             // }
+//             // if(exist1.qty === 1){
+//             //     return state.filter(x => x.id !== exist1.id)
+//             // }
+//             // else{
+//             //     return state.map(x => x.id === payload.id ? {...x, qty: x.qty - 1} : x)
+//             // }
+//             break
+//         default: 
+//             return state
+//             break
+//     }
+// }

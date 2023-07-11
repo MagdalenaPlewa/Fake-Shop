@@ -5,11 +5,20 @@ import { Paper, Link } from '@mui/material';
 import { grey} from '@mui/material/colors';
 
 import { fetchProductsData } from './Api';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { clearSearchInput, clearSearchInut } from '../redux/actions';
+import { useSelector } from 'react-redux';
 
 export default function ComboBox() {
 
     const [titles, setTitles] = useState([])
-    const [inputValue, setInputValue] = useState([])
+    const [inputValue, setInputValue] = useState("")
+    const [click, setClick] = useState(false)
+    const [select, setSelect] = useState(false)
+
+    // const inputValue = useSelector(state => state.clearSearchInput)
+    // const dispatch = useDispatch()
 
     const inputRef = useRef(null)
 
@@ -34,15 +43,21 @@ export default function ComboBox() {
   }, [inputValue])
 
   const submitHandler = (event, target) => {
-    if(event.key === "Enter"){
+    console.log(event, "handler", target)
+    if(event.type === "select" && target.length === 0){
+      setClick(false)
+    }
+    if(event.type === "select" && target.length >= 3){
+
       setInputValue(target)
+      setClick(true)
     }
   }
 
   return (
     <>
-    <Link href={`/products-searching/${inputValue}`} ref={inputRef} onClick={(e) => {
-      if(inputValue.length <= 0){
+    <NavLink to={`/products-searching/${inputValue}`} ref={inputRef} onClick={(e) => {
+      if(inputValue.length <= 0 || click === false) {
         e.preventDefault()
       }
     }}>
@@ -75,7 +90,7 @@ export default function ComboBox() {
       />}
       onKeyDown={event => submitHandler(event, event.target.value)}
     />
-    </Link>
+    </NavLink>
     </>
 
   );

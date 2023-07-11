@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchProductsData } from "./Api"
-import { searchProducts, ratingFilter, priceFilter, setProducts } from "../redux/actions"
+import { searchProducts, ratingFilter, priceFilter, setProducts, clearSearchInput } from "../redux/actions"
 import { ProductCardRender } from "./ProductCardRender"
 import FiltersPanel from "./FiltersPanel"
 
@@ -38,6 +38,11 @@ const ProductsSearching = ({}) => {
         const searchProduct = searchElement.filter(product => product.title.toLowerCase().includes(inputValue.toLowerCase()))
         if(searchProduct.length !==0){
           dispatch(searchProducts(searchProduct))
+          const closeBtn = [...document.getElementsByClassName("MuiAutocomplete-clearIndicator")][0]
+          if(closeBtn){
+              closeBtn.click()
+          }
+
         }
         else{
           const searchedProductsArr = []
@@ -50,6 +55,10 @@ const ProductsSearching = ({}) => {
               }
             }))
             dispatch(searchProducts(searchedProductsArr))
+            const closeBtn = [...document.getElementsByClassName("MuiAutocomplete-clearIndicator")][0]
+            if(closeBtn){
+              closeBtn.click()
+            }
           })
         }
       }
@@ -73,7 +82,7 @@ const ProductsSearching = ({}) => {
 
   useEffect(() => {
     getProducts()
-  }, [])
+  }, [products])
 
   useEffect(() => {
     searchingProducts()
@@ -116,6 +125,7 @@ const ProductsSearching = ({}) => {
                     image={image}
                     price={price}
                     rating={rating.rate}
+                    product={product}
                     />
                 </div>
             )

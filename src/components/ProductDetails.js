@@ -18,32 +18,18 @@ import { useState } from "react"
 export const ProductDetails = () => {
     const product = useSelector(state => state.selectedProduct)
 
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(false)
-
     const { image, title, price, description } = product
     const {id} = useParams()
     const dispatch = useDispatch()
-    // const detailsData = () => {
-    //     fetchProductDetails(id).then(data => {
-    //         dispatch(selectedProduct(data))
-    //     })
-    // }
-    // useEffect(() => {
-    //     detailsData()
-    // }, [id])
 
+    const detailsData = () => {
+        fetchProductDetails(id).then(data => {
+            dispatch(selectedProduct(data))
+        })
+    }
     useEffect(() => {
-        const getProduct = async() => {
-        setLoading(true)
-        const response = await fetch(`https://fakestoreapi.com/products/${id}`)
-        setData(await response.json())
-        console.log(data)
-        dispatch(selectedProduct(data))
-        setLoading(false)
-        }
-        getProduct()
-        }, [id])
+        detailsData()
+    }, [id])
 
     return(
         <div key={id}>

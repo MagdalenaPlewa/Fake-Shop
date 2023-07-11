@@ -3,6 +3,7 @@ import { fetchProductsCategory } from "./Api"
 
 import Link from '@mui/material/Link';
 import { Box } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 export const RenderCategoryLinks = () => {
 
@@ -29,16 +30,20 @@ export const RenderCategoryLinks = () => {
     }, [])
 
     const renderLinks = categories.map(category => {
+
         return (
             <Box key={category} sx={{m: {xs: 2}, textAlign: "left" }}>
-                <Link href={`/products/${category}`} style={ styles.link } sx={{fontSize: {sm: "18px", md: "24px"}}} key={category}>{category}</Link>
+                <NavLink to={`/products/${category}`} style={({ isActive }) => ({
+                    color: isActive ? 'black' : 'black',
+                    textDecoration: "none"
+                })}  key={category}>{category}</NavLink>
             </Box>
         )
-    })
+    })  
 
     return(
         <div>
-            <Box sx={{ display: {xs: "block", sm: "flex"}, justifyContent: "space-around"}}>
+            <Box sx={{ display: {xs: "block", sm: "flex"}, justifyContent: "space-around", fontSize: {sm: "20px", md: "26px"},}}>
                 {renderLinks}
             </Box>
       </div>

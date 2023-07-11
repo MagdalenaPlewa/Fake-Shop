@@ -116,7 +116,7 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
             setProductsToRender(cleanFilter())
   
 
-          }}>DELETE</Button>
+          }}>RESET</Button>
           </Box>
         </Box>
       </>
