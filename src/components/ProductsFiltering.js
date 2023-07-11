@@ -50,7 +50,7 @@ export const ProductsFiltering = ({handleAddProduct}) => {
         dispatch(setProductsByCategory(data))
         setProductsToRender(data)
       })
-    }, [])
+    }, [category])
 
     useEffect(() => {
         setProductsToRender(products)

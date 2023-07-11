@@ -54,3 +54,31 @@ export const addToWishlist = (product) => {
         payload: product
     }
 }
+
+export const deleteFromWishlist = (product) => {
+    return{
+        type: ActionsType.DELETE_FROM_WISHLIST,
+        payload: product,
+    }
+}
+
+export const addToCart = (product) => {
+    return{
+        type: ActionsType.ADD_TO_CART,
+        payload: product
+    }
+}
+
+export const deleteFromCart = (product) => {
+    return{
+        type: ActionsType.DELETE_FROM_CART,
+        payload: product,
+    }
+}
+
+export const clearSearchInput = (title) => {
+    return{
+        type: ActionsType.CLEAR_SEARCH_INPUT,
+        payload: title,
+    }
+}
