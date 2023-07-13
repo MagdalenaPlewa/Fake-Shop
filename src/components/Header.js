@@ -1,19 +1,16 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { styled, alpha } from '@mui/material/styles';
 import { Badge, AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import MailIcon from '@mui/icons-material/Mail';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { blue, orange, grey } from '@mui/material/colors'
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-
 
 import ProductsMenu from './ProductsMenu';
 import ComboBox from './SeachAutocomplete';
@@ -46,10 +43,28 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 export default function SearchAppBar() {
   const [menuOpen, setMenuOpen] = React.useState(false)
+  const [totalQty, setTotalQty] = useState()
+
   const wishProduct = useSelector(state => state.setWishProduct)
   const cart = useSelector(state => state.setCart)
 
   const styles = { link: { textDecoration: "none", color: "White" }};
+
+  const summary = cart.map((product) => {
+    let totalQty = product.qty
+      return(
+        totalQty
+      )
+  })
+
+  useEffect(() => {
+    const initialValue = 0;
+    const total = summary.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+    setTotalQty(total)
+  }, [cart])
 
 
   const hendleMeneClick = () => {
@@ -108,7 +123,7 @@ export default function SearchAppBar() {
               <IconButton
                   size="large"
               >
-                <Badge badgeContent={cart.length} color="error">
+                <Badge badgeContent={totalQty} color="error">
                   <NavLink to="/cart" style={styles.link}>
                    <ShoppingCartOutlinedIcon sx={{color: "white"}}/>
                   </NavLink>

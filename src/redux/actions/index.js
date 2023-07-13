@@ -76,9 +76,9 @@ export const deleteFromCart = (product) => {
     }
 }
 
-export const clearSearchInput = (title) => {
+export const removeItemFromCart = (product) => {
     return{
-        type: ActionsType.CLEAR_SEARCH_INPUT,
-        payload: title,
+        type: ActionsType.REMOVE_PRODUCT_FROM_CART,
+        payload: product,
     }
 }

@@ -120,40 +120,12 @@ export const addToCartReducer = (state = [], {type, payload}) => {
                 return state.map(x => x.id === payload.id ? {...x, qty: x.qty - 1} : x)
             }
             break
+        case ActionsType.REMOVE_PRODUCT_FROM_CART:
+            const exist2 = state.find(x => x.id === payload.id)
+                return state.filter(x => x.id !== exist2.id)
+            break
         default: 
             return state
             break
     }
 }
-
-export const clearSearchInputReducer = (state = [], {type, payload}) => {
-    switch(type){
-        case ActionsType.CLEAR_SEARCH_INPUT:
-            return [...state, payload]
-        default:
-            return state
-    }
-
-}
-
-// export const deleteFromWishlistReducer = (state = [], {type, payload}) => {
-//     switch(type){
-//         case ActionsType.DELETE_FROM_WISHLIST:
-//             // const exist1 = state.find(x => x.id === payload.id)/
-//             console.log(payload.id)
-//             // if(exist1){
-//             //     console.log(exist1)
-//             //     return state.filter(x => x.id === payload.id ? {...x} : x)
-//             // }
-//             // if(exist1.qty === 1){
-//             //     return state.filter(x => x.id !== exist1.id)
-//             // }
-//             // else{
-//             //     return state.map(x => x.id === payload.id ? {...x, qty: x.qty - 1} : x)
-//             // }
-//             break
-//         default: 
-//             return state
-//             break
-//     }
-// }
