@@ -14,21 +14,11 @@ import { ProductCardRender } from './ProductCardRender';
 
 const Wishlist = () => {
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: grey[600],
-      },
-    },
-  });
-
   const wishProduct = useSelector(state => state.setWishProduct)
-    const styles = { link: { textDecoration: "none", color: "black" }};
 
     const renderCards = wishProduct.length ? wishProduct.map((product) => {
         const {id, title, image, price, rating} = product
         return(
-            <>
                 <div key={id}>
                   <ProductCardRender
                   product={product}
@@ -68,15 +58,12 @@ const Wishlist = () => {
                         </Box>
                     </Card> */}
                </div>
-            </>
         )}
     ) : <><div style={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "18px"}}>There's no items here</div></>
     return(
-        <>
             <div style={{display: "flex"}}>
                 {renderCards}
             </div>
-        </>
     )
 }
 
