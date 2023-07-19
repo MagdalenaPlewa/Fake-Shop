@@ -11,7 +11,7 @@ import { setProducts } from '../redux/actions';
 import { setProductsByCategory } from '../redux/actions';
 import { useSelector } from 'react-redux';
 
-const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive, setProductsByRating, setProductsByPrice, isActive}) => {
+const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive}) => {
 
   const newTheme = createTheme({
     palette: {
@@ -47,7 +47,8 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
 
   const filteredProducts = () => {
     setIsActive(false)
-    if(rating == 0){
+    if(rating === "0"){
+      console.log(productsByPrices)
       return productsByPrices
     }
     else{
@@ -55,6 +56,7 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
     }
    }
 
+   
    const cleanFilter = () => {
     setIsActive(false)
     setPriceRange(prices)

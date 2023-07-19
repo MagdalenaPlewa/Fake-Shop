@@ -36,7 +36,6 @@ export default function ComboBox() {
   }, [inputValue])
 
   const submitHandler = (event, target) => {
-    console.log(event, "handler", target)
     if(event.type === "select" && target.length === 0){
       setClick(false)
     }

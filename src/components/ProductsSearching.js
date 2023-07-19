@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchProductsData } from "./Api"
-import { searchProducts, ratingFilter, priceFilter, setProducts, clearSearchInput } from "../redux/actions"
+import { searchProducts } from "../redux/actions"
 import { ProductCardRender } from "./ProductCardRender"
 import FiltersPanel from "./FiltersPanel"
 
@@ -13,7 +12,7 @@ import { Grid, Box } from "@mui/material";
 
 const ProductsSearching = ({}) => {
     
-    const searchElement = useSelector(state => state.allProducts.products)
+    const allProducts = useSelector(state => state.allProducts.products)
     const products = useSelector(state => state.searchingProducts.products)
 
     const dispatch = useDispatch()
@@ -21,21 +20,17 @@ const ProductsSearching = ({}) => {
 
     const [productsToRender, setProductsToRender] = useState([])
     const [productsByPrices, setProductsByPrices] = useState([])
-    const [productsByRating, setProductsByRiting] = useState([])
+    const [productsByRating, setProductsByRating] = useState([])
     const [prices, setPrices] = useState([])
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
 
-   const getProducts = () => {
-    fetchProductsData().then(data => {
-        dispatch(setProducts(data))
-      })
-  }
+    // console.log("search", productsToRender)
 
   const searchingProducts = () => {
-      if(searchElement.length !== 0){
-        const searchProduct = searchElement.filter(product => product.title.toLowerCase().includes(inputValue.toLowerCase()))
+      if(allProducts.length !== 0){
+        const searchProduct = allProducts.filter(product => product.title.toLowerCase().includes(inputValue.toLowerCase()))
         if(searchProduct.length !==0){
           dispatch(searchProducts(searchProduct))
           const closeBtn = [...document.getElementsByClassName("MuiAutocomplete-clearIndicator")][0]
@@ -46,9 +41,9 @@ const ProductsSearching = ({}) => {
         }
         else{
           const searchedProductsArr = []
-          const productsTitle = searchElement.map(product => product.title.toLowerCase())
+          const productsTitle = allProducts.map(product => product.title.toLowerCase())
           const searchedTitles = productsTitle.filter(el => el.includes(inputValue))
-          searchElement.forEach(product => {
+          allProducts.forEach(product => {
             searchedTitles.forEach((element => {
               if(product.title.toLowerCase() === element){
                 searchedProductsArr.push(product)
@@ -65,7 +60,6 @@ const ProductsSearching = ({}) => {
   }
 
   const getPrices = () => {
-    setProductsToRender(products)
       const priceArr = []
           products.map(product => {
             priceArr.push(product.price)
@@ -76,43 +70,51 @@ const ProductsSearching = ({}) => {
         )
    }
 
+   const getPriceSRange = () => {
+    const priceArr = []
+    productsToRender.map(product => {
+      priceArr.push(product.price)
+      return (
+        setPriceRange([Math.min(...priceArr), Math.max(...priceArr)])
+      )
+    }
+  )
+   }
+
    const handleClick = () => {
     setIsActive(current => !current)
    }
 
   useEffect(() => {
-    getProducts()
-  }, [products])
-
-  useEffect(() => {
     searchingProducts()
-  }, [searchElement])
+  }, [inputValue])
 
    useEffect(() => {
     setProductsToRender(products)
-  }, [])
+    setRating("0")
+  }, [products])
 
-    useEffect(() => {
-        getPrices()
-    }, [products])
+  useEffect(() => {
+    getPrices()
+   }, [productsToRender])
 
-    useEffect(() => {
-        setPriceRange(prices)
-    }, [prices])
+   useEffect(() => {
+    getPriceSRange()
+   }, [prices])
 
-    useEffect(() => {
-          const productsToFilter = products.filter(product => product.rating.rate > rating)
-          setProductsByRiting(productsToFilter)
-          dispatch(ratingFilter(productsToFilter))
-    }, [rating])
+  useEffect(() => {
+    if(products.length !== 0){
+      const productsToFilter = products.filter(product => product.rating.rate > rating)
+      setProductsByRating(productsToFilter)
+    }
+  }, [rating])
 
-    useEffect(() => {
-      const productsByPrices = products.filter(product => {
-        return(product.price >= priceRange[0] && product.price <= priceRange[1])
-      })
-        setProductsByPrices(productsByPrices)
-        dispatch(priceFilter(productsByPrices))
-    }, [priceRange])
+  useEffect(() => {
+    const productsByPrices = products.filter(product => {
+      return(product.price >= priceRange[0] && product.price <= priceRange[1])
+    })
+      setProductsByPrices(productsByPrices)
+  }, [priceRange])
 
     const renderList = (productsToRender.length) ? (
       productsToRender.map(product => {
@@ -126,6 +128,7 @@ const ProductsSearching = ({}) => {
                     price={price}
                     rating={rating.rate}
                     product={product}
+
                     />
                 </div>
             )
@@ -168,7 +171,7 @@ const ProductsSearching = ({}) => {
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>Loading...</div>)
+        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>no result</div>)
     
     )
 }
