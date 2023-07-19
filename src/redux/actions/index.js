@@ -27,20 +27,6 @@ export const setProductsByCategory = (products) => {
     }
 }
 
-export const ratingFilter = (productsByRating) => {
-    return{
-        type: ActionsType.RATING_FILTER,
-        payload: productsByRating
-    }
-}
-
-export const priceFilter = (productsByPrices) => {
-    return{
-        type: ActionsType.PRICE_FILTER,
-        payload: productsByPrices
-    }
-}
-
 export const searchProducts = (searchingProducts) => {
     return{
         type: ActionsType.SEARCH_PRODUCTS,

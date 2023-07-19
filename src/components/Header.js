@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 import { styled, alpha } from '@mui/material/styles';
 import { Badge, AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -43,29 +42,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 export default function SearchAppBar() {
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const [totalQty, setTotalQty] = useState()
-
-  const wishProduct = useSelector(state => state.setWishProduct)
-  const cart = useSelector(state => state.setCart)
 
   const styles = { link: { textDecoration: "none", color: "White" }};
-
-  const summary = cart.map((product) => {
-    let totalQty = product.qty
-      return(
-        totalQty
-      )
-  })
-
-  useEffect(() => {
-    const initialValue = 0;
-    const total = summary.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      initialValue
-    );
-    setTotalQty(total)
-  }, [cart])
-
 
   const hendleMeneClick = () => {
     setMenuOpen(open => !open)
@@ -113,27 +91,15 @@ export default function SearchAppBar() {
           <Box sx={{display: {xs: "none", sm: "flex"}}}>
               <IconButton
                   size="large"
+                  aria-label="account of current user"
               >
-                <Badge badgeContent={wishProduct.length} color="error">
-                  <NavLink to="/wishlist" style={styles.link}>
-                   <FavoriteBorderIcon sx={{color: "white"}}/>
-                  </NavLink>
-                </Badge>
-              </IconButton>
-              <IconButton
-                  size="large"
-              >
-                <Badge badgeContent={totalQty} color="error">
-                  <NavLink to="/cart" style={styles.link}>
-                   <ShoppingCartOutlinedIcon sx={{color: "white"}}/>
-                  </NavLink>
-                </Badge>
+                  <AccountCircle sx={{color: "white"}}/>
               </IconButton>
               <IconButton
                   size="large"
                   aria-label="account of current user"
               >
-                  <AccountCircle sx={{color: "white"}}/>
+                  <MailIcon sx={{color: "white"}}/>
               </IconButton>
           </Box>
 

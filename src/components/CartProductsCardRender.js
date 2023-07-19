@@ -23,7 +23,7 @@ export const CartProductCardRender = ({product, id, title, image, price}) => {
 
   const [toWishlist, setToWishlist] = useState(false)
   const [toCart, setToCart] = useState(false)
-  const [amound, setAmound] = useState()
+  const [amount, setAmount] = useState()
 
   const MinusBtn = styled(Button)({
     fontSize: 27,
@@ -84,9 +84,9 @@ export const CartProductCardRender = ({product, id, title, image, price}) => {
     dispatch(removeItemFromCart(product))
   }
 
-  const pricesAmound = (product) => {
-    let amound = (product.price*product.qty).toFixed(2)
-      setAmound(amound)
+  const pricesamount = (product) => {
+    let amount = (product.price*product.qty).toFixed(2)
+      setAmount(amount)
 
   }
 
@@ -107,47 +107,49 @@ export const CartProductCardRender = ({product, id, title, image, price}) => {
   }, [])
 
   useEffect(() => {
-    pricesAmound(product)
+    pricesamount(product)
   }, [product.qty])
 
        return(
             <div key={id}>
               <Card sx={{m: 2 }}>
-                <Grid container sx={{border: "1px solid", borderColor: grey[300]}}>
-                  <Grid item xs={2} sx={{p:2, width: 150, height: 200, display: "flex", justifyContent: "center", alignItems: "center", position: "relative"}}>
+                <Grid container sx={{border: "1px solid", borderColor: grey[300], height: {xs: 260, md: 200}}} >
+                  <Grid item xs={4} md={2} sx={{ width: 150, height: 150, display: "flex", justifyContent: "center", alignItems: "center", position: "relative"}}>
                     <NavLink to={`/product/${id}`} style={styles.link}>
                       <CardMedia 
                       component="img"
-                      sx={{maxHeight: 250, width: 100}}
+                      sx={{maxHeight: 150, width: 85}}
                       image={image}
                       alt={title}
                       />
                     </NavLink>
                   </Grid>
-                  <Grid item xs={7} sx={{p: 2, display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-                    <Typography variant="body2" component="div" sx={{ width: "100%", textAlign: "left", fontSize: "22px"}} >
-                          {title}
+                  <Grid item xs={8} md={5} sx={{p: 2, display: "flex", flexDirection: "column", }}>
+                    <Typography variant="body2" component="div" sx={{ width: "100%", textAlign: "left", fontSize: {xs: "16px", md: "22px"}}} >
+                          {title.slice(0, 25)}
                     </Typography>
-                    <Typography sx={{color: "red", fontWeight: 'bold', fontSize: "20px", display: "flex", alignItems: "center", bgcolor: "green", height: 40}}>
+                    <Typography sx={{color: "red", fontWeight: 'bold', fontSize: {xs: "16px", md: "20px"}, display: "flex", alignItems: "center", height: 40}}>
                         {`${price.toFixed(2)} $`}
                     </Typography>
                   </Grid>
-                  <Grid item xs={3} sx={{ p: 2, display: "flex", justifyContent: "flex-end", alignItems: "flex-end", position: "relative"}}>
+                  <Grid item xs={12} md={5} sx={{ p: 2, display: "flex", flexDirection: {xs:"column", sm: "row"}, justifyContent: {xs: "space-between" ,sm: "flex-end"}, alignItems: "flex-end", position: "relative"}}>
                     <Box sx={{display: "flex", height: 40}}>
                       <MinusBtn variant='outlined' onClick={() => {
                         handleReduceInCart(product)
                       }}>-</MinusBtn>
-                      <Typography sx={{ fontSize: "20px", width: 50, border: "1px solid", borderColor: grey[300], display: "flex", justifyContent: "center", alignItems: "center"}}>
+                      <Typography sx={{ fontSize: {xs: "16px", md: "20px"}, width: {xs: 20, sm: 40}, border: "1px solid", borderColor: grey[300], display: "flex", justifyContent: "center", alignItems: "center"}}>
                         {`${product.qty}`}
                       </Typography>
                       <PlusBtn variant='outlined' onClick={() => {
                         handleAddToCart(product)
                       }}>+</PlusBtn>
-                      <Typography sx={{ fontWeight: 'bold', fontSize: "22px", width: 250, display: "flex", flexWrap: "wrap", justifyContent: "flex-end",alignItems: "center", bgcolor: "blue", mr: 5}}>
-                        {`${amound} $`}
+                    </Box>
+                    <Box sx={{display: "flex", height: 40}}>
+                      <Typography sx={{ fontWeight: 'bold', fontSize: {xs: "16px", md: "22px"}, width: 250, display: "flex", flexWrap: "wrap", justifyContent: "flex-end",alignItems: "center", mr: 5}}>
+                        {`${amount} $`}
                     </Typography>
                     </Box>
-                    <IconButton sx={{ position: "absolute" , top: 0, right: 0, '&:hover' :{color: "red", cursor: "pointer" }}} 
+                    <IconButton sx={{ position: "absolute" , top: {xs: -150, sm: -165, md: 0}, right: 0, '&:hover' :{color: "red", cursor: "pointer" }}} 
                       onClick={() => handleAddToWishlist(product)}>
                       <FavoriteBorderIcon fontSize="large" sx={{color: toWishlist ? "red" : "grey"}}/>
                     </IconButton>

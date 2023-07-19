@@ -68,12 +68,12 @@ export const Cart = () => {
     return(
         <>
           <Grid container>
-            <Grid item xs={8}>
+            <Grid item xs={12} lg={8}>
               <div style={{display: "flex", flexDirection: "column"}}>
                 {renderCards}
               </div>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} lg={4}>
             <Card sx={{ maxWidth: "100%", height: "50vh", m: 2, display: cartItems ? "block" : "none", border: "1px solid", borderColor: grey[300], bgcolor: grey[200], position: "relative"}}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" sx={{fontWeight: 'bold', fontSize: "26px", textAlign: "center"}}>

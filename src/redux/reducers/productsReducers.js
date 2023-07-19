@@ -31,23 +31,6 @@ export const setProductsByCategoryReducer = (state = initialState, {type, payloa
     }
 }
 
-export const ratingFilterReducer = (state = initialState, {type, payload}) => {
-    switch(type){
-        case ActionsType.RATING_FILTER:
-            return {...state, products: payload}
-        default:
-            return state
-    }
-}
-
-export const pricesFilterREducer = (state = initialState, {type, payload}) => {
-    switch(type){
-        case ActionsType.PRICE_FILTER:
-            return {...state, products: payload}
-        default:
-            return state
-    }
-}
 
 export const searchingProductsReducer = (state = initialState, {type, payload}) => {
     switch(type){
