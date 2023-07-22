@@ -1,19 +1,16 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import ProductsMenu from './ProductsMenu';
+import ComboBox from './SeachAutocomplete';
+import { NavLink } from 'react-router-dom';
 
 import { styled, alpha } from '@mui/material/styles';
-import { Badge, AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { blue, orange, grey } from '@mui/material/colors'
-
-import ProductsMenu from './ProductsMenu';
-import ComboBox from './SeachAutocomplete';
-import { NavLink } from 'react-router-dom';
+import { grey } from '@mui/material/colors'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

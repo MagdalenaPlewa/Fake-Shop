@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { CartProductCardRender } from './CartProductsCardRender';
+
 import { Button, Grid } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { grey, green } from '@mui/material/colors';
 import { createTheme } from '@mui/material';
-import { totalCost } from '../redux/actions';
 
 export const Cart = () => {
 
   const cart = useSelector(state => state.setCart)
-
-  const dispatch = useDispatch()
 
   const [cartItems, setCartItems] = useState(false)
   const [totalPrices, setTotalPrices] = useState(0)
@@ -83,7 +81,7 @@ export const Cart = () => {
                   {`${totalPrices.toFixed(2)} $`}  
                 </Typography>
               </CardContent>
-              <Button theme={theme} variant="contained" sx={{width: "100%", height: 75, fontSize: "24px", fontWeight: "bold", mt: 5, position: "absolute", bottom: 0}}>CONFIRM</Button>
+              <Button theme={theme} variant="contained" sx={{width: "100%", height: 75, fontSize: "24px", fontWeight: "bold", mt: 5, position: "absolute", bottom: 0}}>Buy now</Button>
             </Card>
             </Grid>
 

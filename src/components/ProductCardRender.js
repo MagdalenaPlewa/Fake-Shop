@@ -1,17 +1,18 @@
-import { createTheme } from '@mui/material/styles';
-import { grey, red } from '@mui/material/colors';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import { Box, IconButton, Rating } from "@mui/material";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useState, useEffect } from 'react';
 import { addToCart, addToWishlist, deleteFromCart, deleteFromWishlist } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+import { createTheme } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Box, IconButton, Rating } from "@mui/material";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 
 export const ProductCardRender = ({product, id, title, image, price, rating}) => {
 
@@ -46,10 +47,6 @@ export const ProductCardRender = ({product, id, title, image, price, rating}) =>
     if(!toCart){
       setToCart(true)
       dispatch(addToCart(product))
-    }
-    else{
-      setToCart(false)
-      dispatch(deleteFromCart(product))
     }
   }
 

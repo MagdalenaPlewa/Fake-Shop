@@ -14,11 +14,11 @@ export const selectedProduct = (product) => {
     }
 }
 
-// export const clearProducts = () => {
-//     return{
-//         type: ActionsType.CLEAR_PRODUCTS,
-//     }
-// }
+export const clearProduct = () => {
+    return{
+        type: ActionsType.CLEAR_PRODUCT,
+    }
+}
 
 export const setProductsByCategory = (products) => {
     return{

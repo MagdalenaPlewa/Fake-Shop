@@ -7,7 +7,6 @@ import FiltersPanel from "./FiltersPanel"
 
 import IconButton from '@mui/material/IconButton';
 import TuneIcon from '@mui/icons-material/Tune';
-
 import { Grid, Box } from "@mui/material";
 
 const ProductsSearching = ({}) => {
@@ -25,8 +24,7 @@ const ProductsSearching = ({}) => {
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
-
-    // console.log("search", productsToRender)
+    const [noResult, setNoResult] = useState(false)
 
   const searchingProducts = () => {
       if(allProducts.length !== 0){
@@ -70,16 +68,16 @@ const ProductsSearching = ({}) => {
         )
    }
 
-   const getPriceSRange = () => {
+  const getPriceSRange = () => {
     const priceArr = []
     productsToRender.map(product => {
       priceArr.push(product.price)
       return (
         setPriceRange([Math.min(...priceArr), Math.max(...priceArr)])
-      )
-    }
-  )
-   }
+        )
+      }
+    )
+  }
 
    const handleClick = () => {
     setIsActive(current => !current)
@@ -116,7 +114,7 @@ const ProductsSearching = ({}) => {
       setProductsByPrices(productsByPrices)
   }, [priceRange])
 
-    const renderList = (productsToRender.length) ? (
+    const renderList = (!noResult) ? (
       productsToRender.map(product => {
             const {id, title, image, price, rating} = product
               return(
@@ -133,10 +131,10 @@ const ProductsSearching = ({}) => {
                 </div>
             )
             })
-    ) : (<>no result</>)
+    ) : ((<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}><>no result</></div>))
 
     return(
-      (productsToRender.length) ? (<Grid container>
+      (products.length) ? (<Grid container>
         <Grid item xs={12} md={0} sx={{mt: 2, display: "flex", justifyContent: "center"}}>
         <Box sx={{ display: {xs: 'block', md: 'none'} }} >
           <IconButton
@@ -166,12 +164,14 @@ const ProductsSearching = ({}) => {
             productsByRating={productsByRating}
             setIsActive={setIsActive}
             isActive={isActive}
+            setNoResult={setNoResult}
+            params={"inputValue"}
           />
         </Grid>
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>no result</div>)
+        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>Loading...</div>)
     
     )
 }

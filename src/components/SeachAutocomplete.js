@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { fetchProductsData } from './Api';
+import { NavLink } from 'react-router-dom';
+
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Paper } from '@mui/material';
 import { grey} from '@mui/material/colors';
-
-import { fetchProductsData } from './Api';
-import { NavLink } from 'react-router-dom';
 
 export default function ComboBox() {
 
