@@ -1,20 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { setProducts } from "../redux/actions"
 import { fetchProductsData } from "./Api";
 import { ProductCardRender } from "./ProductCardRender";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { IconButton, Rating } from "@mui/material";
 
 import { Box } from "@mui/material";
-import { useState } from "react";
+
 
 const ProductListing = ({handleAddProduct}) => {
-
-    const [data, setData] = useState([])
-    const [filter, setFilter] = useState(data)
-    const [loading, setLoading] = useState(false)
-    let componentMounted = true
 
     const products = useSelector(state => state.allProducts.products)
     const dispatch = useDispatch()

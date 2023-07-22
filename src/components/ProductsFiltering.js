@@ -25,6 +25,7 @@ export const ProductsFiltering = () => {
     const [priceRange, setPriceRange] = useState([]);
     const [rating, setRating] = useState("0");
     const [isActive, setIsActive] = useState(false)
+    const [noResult, setNoResult] = useState(false)
 
     const getPrices = () => {
       const priceArr = []
@@ -81,7 +82,7 @@ export const ProductsFiltering = () => {
         setProductsByPrices(productsByPrices)
     }, [priceRange])
 
-    const renderList = (productsToRender.length) ? (
+    const renderList = (!noResult) ? (
       productsToRender.map(product => {
           const {id, title, image, price, rating} = product
               return(
@@ -97,10 +98,10 @@ export const ProductsFiltering = () => {
                 </div>
               )
             })
-    ) : (<>no result</>)
+    ) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}><>no result</></div>)
 
     return(
-      (productsToRender.length) ? (<Grid container>
+      (products.length) ? (<Grid container>
         <Grid item xs={12} md={0} sx={{mt: 2, display: "flex", justifyContent: "center"}}>
         <Box sx={{ display: {xs: 'block', md: 'none'} }} >
           <IconButton
@@ -132,12 +133,14 @@ export const ProductsFiltering = () => {
             setProductsByRiting={setProductsByRiting}
             setIsActive={setIsActive}
             isActive={isActive}
+            setNoResult={setNoResult}
+            params={"category"}
           />
         </Grid>
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-      </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}><>no result</></div>)
+      </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}><>Loading...</></div>)
       
     )
 }

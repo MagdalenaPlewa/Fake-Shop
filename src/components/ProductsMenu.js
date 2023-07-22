@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { RenderCategoryLinks } from './ProductsCategory';
+
 import AppBar from '@mui/material/AppBar';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -9,8 +11,6 @@ import { Grid, Box, useMediaQuery, Badge } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { orange} from '@mui/material/colors'
-
-import { RenderCategoryLinks } from './ProductsCategory';
 
 const ProductsMenu = ({menuOpen}) => {
 

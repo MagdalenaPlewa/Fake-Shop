@@ -1,17 +1,18 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { addToWishlist, deleteFromWishlist, addToCart, deleteFromCart, removeItemFromCart } from '../redux/actions';
+
 import styled from '@emotion/styled';
 import { grey } from '@mui/material/colors';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { CardMedia } from '@mui/material';
-import Link from '@mui/material/Link';
 import { Box, IconButton, Button, Grid } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { addToWishlist, deleteFromWishlist, addToCart, deleteFromCart, removeItemFromCart } from '../redux/actions';
+
 
 export const CartProductCardRender = ({product, id, title, image, price}) => {
 
@@ -125,7 +126,7 @@ export const CartProductCardRender = ({product, id, title, image, price}) => {
                     </NavLink>
                   </Grid>
                   <Grid item xs={8} md={5} sx={{p: 2, display: "flex", flexDirection: "column", }}>
-                    <Typography variant="body2" component="div" sx={{ width: "100%", textAlign: "left", fontSize: {xs: "16px", md: "22px"}}} >
+                    <Typography variant="body2" component="div" sx={{ width: "90%", textAlign: "left", fontSize: {xs: "16px", md: "22px"}}} >
                           {title.slice(0, 25)}
                     </Typography>
                     <Typography sx={{color: "red", fontWeight: 'bold', fontSize: {xs: "16px", md: "20px"}, display: "flex", alignItems: "center", height: 40}}>

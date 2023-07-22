@@ -1,20 +1,11 @@
 import React, {useState, useEffect} from "react"
 import { fetchProductsCategory } from "./Api"
-
-import Link from '@mui/material/Link';
-import { Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
+import { Box } from "@mui/material";
+
+
 export const RenderCategoryLinks = () => {
-
-    const styles = { 
-        link:
-        {
-            textDecoration: "none", 
-            color: "black" ,
-        },
-
-    };
 
     const [categories, setCategories] = useState([])
 
@@ -34,7 +25,7 @@ export const RenderCategoryLinks = () => {
         return (
             <Box key={category} sx={{m: {xs: 2}, textAlign: "left" }}>
                 <NavLink to={`/products/${category}`} style={({ isActive }) => ({
-                    color: isActive ? 'black' : 'black',
+                    color: isActive ? 'black' : 'gray',
                     textDecoration: "none"
                 })}  key={category}>{category}</NavLink>
             </Box>

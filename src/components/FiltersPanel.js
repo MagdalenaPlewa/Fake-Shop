@@ -1,17 +1,12 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-
-import { Box, FormControl, Slider, Select, InputLabel, MenuItem, Paper, Button, useMediaQuery} from '@mui/material'
-
-import { createTheme } from '@mui/material/styles';
-
-import { styled } from '@mui/material/styles';
-import { setProducts } from '../redux/actions';
-
-import { setProductsByCategory } from '../redux/actions';
 import { useSelector } from 'react-redux';
 
-const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive}) => {
+import { Box, FormControl, Slider, Select, InputLabel, MenuItem, Paper, Button} from '@mui/material'
+import { createTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+
+
+const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, setProductsToRender, productsByRating, productsByPrices, setIsActive, setNoResult, params}) => {
 
   const newTheme = createTheme({
     palette: {
@@ -47,24 +42,29 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
 
   const filteredProducts = () => {
     setIsActive(false)
+    setNoResult(false)
     if(rating === "0"){
-      console.log(productsByPrices)
-      return productsByPrices
+      const result = productsByPrices
+      return result
     }
     else{
-      return productsByPrices.filter(el => productsByRating.includes(el))
+      const result = productsByPrices.filter(el => productsByRating.includes(el))
+      if(result.length === 0){
+        setNoResult(true)
+      }
+      return result
     }
    }
 
-   
-   const cleanFilter = () => {
+  const cleanFilter = () => {
     setIsActive(false)
     setPriceRange(prices)
     setRating("0")
-    if(productsByCategory.length !== 0){
+    setNoResult(false)
+    if(params === "category"){
       return productsByCategory
     }
-    if(productsBySearching.length !== 0){
+    if(params === "inputValue"){
       return productsBySearching
     }
    }
@@ -112,12 +112,9 @@ const FiltersPanel = ({rating, setRating, prices, priceRange, setPriceRange, set
           <Box sx={{display: "flex", justifyContent: "space-around", pt: 3}}>
           <Button sx={{border: "1px solid black", color: "grey", maxWidth: "50px", m: 1}} onClick={() => {
             setProductsToRender(filteredProducts())
-
           }}>Filter</Button>
           <Button sx={{border: "1px solid black", color: "grey", maxWidth: "50px", m: 1}} onClick={() => {
             setProductsToRender(cleanFilter())
-  
-
           }}>RESET</Button>
           </Box>
         </Box>
