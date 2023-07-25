@@ -12,9 +12,21 @@ const ProductListing = ({handleAddProduct}) => {
     const products = useSelector(state => state.allProducts.products)
     const dispatch = useDispatch()
 
+    const LOCAL_STORAGE_KEY = "productList"
+
+    const getLocalStorage = () => {
+      const data = localStorage.getItem(LOCAL_STORAGE_KEY)
+      if(data) return JSON.parse(data)
+      else return []
+    }
+
+    const [productList, setProductList] = useState(getLocalStorage())
+
     const productsData = () => {
         fetchProductsData().then(data => {
             dispatch(setProducts(data))
+            setProductList(data)
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data))
         })
     }
 
@@ -22,7 +34,7 @@ const ProductListing = ({handleAddProduct}) => {
         productsData()
     }, [])
 
-    const renderList = products.length ? (products.map(product => {
+    const renderList = productList.length ? (productList.map(product => {
             const {id, title, image, price, rating} = product
 
             return(

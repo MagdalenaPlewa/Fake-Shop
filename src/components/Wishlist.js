@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
 import { ProductCardRender } from './ProductCardRender';
 
+import { Box } from '@mui/material';
+
 const Wishlist = () => {
 
-  const wishProduct = useSelector(state => state.setWishProduct)
 
-    const renderCards = wishProduct.length ? wishProduct.map((product) => {
+  const wishlistProducts = useSelector(state => state.setWishProduct)
+
+      const renderCards = wishlistProducts.length ? wishlistProducts.map((product) => {
         const {id, title, image, price, rating} = product
         return(
                 <div key={id}>
@@ -19,11 +22,14 @@ const Wishlist = () => {
                   />
                </div>
         )}
-    ) : <><div style={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "18px"}}>There's no items here</div></>
+    ) : <><Box sx={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "22px"}}>There's no items here</Box></>
     return(
-            <div style={{display: "flex"}}>
-                {renderCards}
-            </div>
+      <>
+        <Box sx={{display: "flex", p: {sx: 2, md: 5}}}>
+          {renderCards}
+        </Box>
+      </>
+
     )
 }
 

@@ -68,3 +68,4 @@ export const removeItemFromCart = (product) => {
         payload: product,
     }
 }
+

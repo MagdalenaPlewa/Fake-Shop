@@ -171,7 +171,7 @@ const ProductsSearching = ({}) => {
         <Grid item xs={12} md={10} sx={{display: isActive ? {xs: "none", md: "flex"} : {xs: "flex", md: "flex"}, flexWrap: "wrap", justifyContent: "center", p: 0, mt: 2}}>
          {renderList}
         </Grid>
-        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>Loading...</div>)
+        </Grid>) : (<div style={{width: "100vw", height: "50vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "24px"}}>no result</div>)
     
     )
 }
