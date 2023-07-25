@@ -17,7 +17,8 @@ const ProductsMenu = ({menuOpen}) => {
     const isDesktop = useMediaQuery('(min-width: 600px)')
     const [totalQty, setTotalQty] = useState()
   
-    const wishProduct = useSelector(state => state.setWishProduct)
+    const wishProducts = useSelector(state => state.setWishProduct)
+
     const cart = useSelector(state => state.setCart)
   
     const styles = { link: { textDecoration: "none", color: "black" }};
@@ -55,7 +56,7 @@ const ProductsMenu = ({menuOpen}) => {
                     <IconButton
                       size="large"
                     >
-                      <Badge badgeContent={wishProduct.length} color="error">
+                      <Badge badgeContent={wishProducts.length} color="error">
                         <NavLink to="/wishlist" style={styles.link}>
                          <FavoriteBorderIcon sx={{color: "grey"}}/>
                         </NavLink>
@@ -87,7 +88,7 @@ const ProductsMenu = ({menuOpen}) => {
                 <IconButton
                   size="large"
                 >
-                  <Badge badgeContent={wishProduct.length} color="error">
+                  <Badge badgeContent={wishProducts.length} color="error">
                     <NavLink to="/wishlist" >
                      <FavoriteBorderIcon sx={{color: "grey"}}/>
                     </NavLink>
@@ -104,25 +105,19 @@ const ProductsMenu = ({menuOpen}) => {
                 </IconButton>
                 </Box>
                 <Box sx={{ display: "flex"}}>
-                            <IconButton
-                              size="large"
-                              aria-label="show 4 new mails"
-                            >
-                              <MailIcon/>
-                            </IconButton>
-                            <IconButton
-                              size="large"
-                              aria-label="account of current user"
-                            >
-                              <AccountCircle />
-                            </IconButton>
-                            <IconButton
-                              size="large"
-                              aria-label="account of current user"
-                            >
-                              <AccountCircle />
-                            </IconButton>
-                    </Box>
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                  >
+                    <MailIcon/>
+                  </IconButton>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                </Box>
             </Box>
         </AppBar>
       )

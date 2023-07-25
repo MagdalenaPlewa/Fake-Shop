@@ -65,7 +65,7 @@ export const Cart = () => {
     ) : <><div style={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "24px"}}>There's no items here</div></>
     return(
         <>
-          <Grid container>
+          <Grid container sx={{p: {xs: 1, md: 5}}}>
             <Grid item xs={12} lg={8}>
               <div style={{display: "flex", flexDirection: "column"}}>
                 {renderCards}

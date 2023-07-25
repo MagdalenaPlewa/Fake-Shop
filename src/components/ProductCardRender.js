@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { addToCart, addToWishlist, deleteFromCart, deleteFromWishlist } from '../redux/actions';
+import { addToCart, addToWishlist, deleteFromWishlist } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -25,6 +25,7 @@ export const ProductCardRender = ({product, id, title, image, price, rating}) =>
   });
 
   const styles = { link: { textDecoration: "none", color: "black" }};
+
   const dispatch = useDispatch()
 
   const wishlistProducts = useSelector(state => state.setWishProduct)
@@ -33,6 +34,7 @@ export const ProductCardRender = ({product, id, title, image, price, rating}) =>
   const [toCart, setToCart] = useState(false)
 
   const handleAddToWishlist = (product) => {
+    
     if(!toWishlist){
       setToWishlist(true)
       dispatch(addToWishlist(product))
@@ -87,10 +89,6 @@ export const ProductCardRender = ({product, id, title, image, price, rating}) =>
                         <AddShoppingCartIcon fontSize='large' />
                       </IconButton>
                     </Box>
-                    <Box>
-
-                    </Box>
-                    
                 </Card>
            </div>
         )
