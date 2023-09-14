@@ -1,6 +1,6 @@
 import { combineReducers } from "redux"
 
-import { setProductsReducer, selectedProductReducer, setProductsByCategoryReducer, searchingProductsReducer, addToWishlistReducer, addToCartReducer, addToLocalstorageReducer} from "./productsReducers"
+import { setProductsReducer, selectedProductReducer, setProductsByCategoryReducer, searchingProductsReducer, addToWishlistReducer, addToCartReducer} from "./productsReducers"
 
 const reducers = combineReducers({
     allProducts: setProductsReducer,
