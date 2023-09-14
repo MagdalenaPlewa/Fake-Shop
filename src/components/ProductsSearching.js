@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import TuneIcon from '@mui/icons-material/Tune';
 import { Grid, Box } from "@mui/material";
 
-const ProductsSearching = ({}) => {
+const ProductsSearching = () => {
     
     const allProducts = useSelector(state => state.allProducts.products)
     const products = useSelector(state => state.searchingProducts.products)

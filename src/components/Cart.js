@@ -62,7 +62,7 @@ export const Cart = () => {
             />
           </div>
         )}
-    ) : <><div style={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "24px"}}>There's no items here</div></>
+    ) : <><div style={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "24px"}}>There's no item here</div></>
     return(
         <>
           <Grid container sx={{p: {xs: 1, md: 5}}}>

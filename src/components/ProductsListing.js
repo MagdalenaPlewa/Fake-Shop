@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 
 const ProductListing = ({handleAddProduct}) => {
 
-    const products = useSelector(state => state.allProducts.products)
+    // const products = useSelector(state => state.allProducts.products)
     const dispatch = useDispatch()
 
     const LOCAL_STORAGE_KEY = "productList"

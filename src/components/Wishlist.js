@@ -22,7 +22,7 @@ const Wishlist = () => {
                   />
                </div>
         )}
-    ) : <><Box sx={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "22px"}}>There's no items here</Box></>
+    ) : <><Box sx={{display: "flex", width: "100%", justifyContent: "center", m: 2, fontSize: "22px"}}>There's no item here</Box></>
     return(
       <>
         <Box sx={{display: "flex", p: {sx: 2, md: 5}}}>
